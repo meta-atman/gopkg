@@ -3,10 +3,10 @@ package mapping
 import (
 	"encoding"
 	"encoding/base64"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/meta-atman/gopkg/cast"
-	"github.com/meta-atman/gopkg/encoding/json"
 	"os"
 	"reflect"
 	"slices"
@@ -112,11 +112,11 @@ func (u *Unmarshaler) fillMapFromString(value reflect.Value, mapValue any) error
 
 	switch v := mapValue.(type) {
 	case fmt.Stringer:
-		if err := json.UnmarshalFromString(v.String(), value.Addr().Interface()); err != nil {
+		if err := UnmarshalJsonFromString(v.String(), value.Addr().Interface()); err != nil {
 			return err
 		}
 	case string:
-		if err := json.UnmarshalFromString(v, value.Addr().Interface()); err != nil {
+		if err := UnmarshalJsonFromString(v, value.Addr().Interface()); err != nil {
 			return err
 		}
 	default:
@@ -188,11 +188,11 @@ func (u *Unmarshaler) fillSliceFromString(fieldType reflect.Type, value reflect.
 	var slice []any
 	switch v := mapValue.(type) {
 	case fmt.Stringer:
-		if err := json.UnmarshalFromString(v.String(), &slice); err != nil {
+		if err := UnmarshalJsonFromString(v.String(), &slice); err != nil {
 			return fmt.Errorf("fullName: `%s`, error: `%w`", fullName, err)
 		}
 	case string:
-		if err := json.UnmarshalFromString(v, &slice); err != nil {
+		if err := UnmarshalJsonFromString(v, &slice); err != nil {
 			return fmt.Errorf("fullName: `%s`, error: `%w`", fullName, err)
 		}
 	default:
@@ -271,7 +271,7 @@ func (u *Unmarshaler) fillSliceWithDefault(derefedType reflect.Type, value refle
 	if !ok {
 		if baseFieldKind == reflect.String {
 			slice = parseGroupedSegments(defaultValue)
-		} else if err := json.UnmarshalFromString(defaultValue, &slice); err != nil {
+		} else if err := UnmarshalJsonFromString(defaultValue, &slice); err != nil {
 			return err
 		}
 

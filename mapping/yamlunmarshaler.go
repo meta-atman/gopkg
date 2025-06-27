@@ -1,13 +1,12 @@
 package mapping
 
 import (
-	"github.com/meta-atman/gopkg/encoding"
 	"io"
 )
 
 // UnmarshalYamlBytes unmarshals content into v.
 func UnmarshalYamlBytes(content []byte, v any, opts ...UnmarshalOption) error {
-	b, err := encoding.YamlToJson(content)
+	b, err := YamlToJson(content)
 	if err != nil {
 		return err
 	}

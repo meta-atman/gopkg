@@ -1,8 +1,8 @@
 package cast
 
 import (
+	"encoding/json"
 	"fmt"
-	"github.com/meta-atman/gopkg/encoding/json"
 	"html/template"
 	"strconv"
 	"time"

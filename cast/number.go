@@ -1,9 +1,9 @@
 package cast
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/meta-atman/gopkg/encoding/json"
 	"regexp"
 	"strconv"
 	"strings"

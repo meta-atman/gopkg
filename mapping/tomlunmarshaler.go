@@ -1,13 +1,12 @@
 package mapping
 
 import (
-	"github.com/meta-atman/gopkg/encoding"
 	"io"
 )
 
 // UnmarshalTomlBytes unmarshals TOML bytes into the given v.
 func UnmarshalTomlBytes(content []byte, v any, opts ...UnmarshalOption) error {
-	b, err := encoding.TomlToJson(content)
+	b, err := TomlToJson(content)
 	if err != nil {
 		return err
 	}

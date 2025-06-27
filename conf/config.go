@@ -2,8 +2,6 @@ package conf
 
 import (
 	"fmt"
-	"github.com/meta-atman/gopkg/encoding"
-	"github.com/meta-atman/gopkg/encoding/json"
 	"github.com/meta-atman/gopkg/mapping"
 	"log"
 	"os"
@@ -82,7 +80,7 @@ func LoadFromJsonBytes(content []byte, v any) error {
 	}
 
 	var m map[string]any
-	if err = json.Unmarshal(content, &m); err != nil {
+	if err = mapping.UnmarshalJson(content, &m); err != nil {
 		return err
 	}
 
@@ -104,7 +102,7 @@ func LoadConfigFromJsonBytes(content []byte, v any) error {
 
 // LoadFromTomlBytes loads config into v from content toml bytes.
 func LoadFromTomlBytes(content []byte, v any) error {
-	b, err := encoding.TomlToJson(content)
+	b, err := mapping.TomlToJson(content)
 	if err != nil {
 		return err
 	}
@@ -114,7 +112,7 @@ func LoadFromTomlBytes(content []byte, v any) error {
 
 // LoadFromYamlBytes loads config into v from content yaml bytes.
 func LoadFromYamlBytes(content []byte, v any) error {
-	b, err := encoding.YamlToJson(content)
+	b, err := mapping.YamlToJson(content)
 	if err != nil {
 		return err
 	}
