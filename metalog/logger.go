@@ -435,12 +435,12 @@ func (l *Logger) Printf(format string, v ...any) {
 // WithName returns a new Logger instance with the specified name field added to the context.
 func (l *Logger) WithName(name string) *Logger {
 	newLogger := *l
-	
+
 	// Create a new context entry with the name field
 	e := NewContext(nil)
 	e.Str("name", name)
 	nameContext := e.Value()
-	
+
 	// Combine existing context with name context
 	if l.Context != nil {
 		newContext := make([]byte, 0, len(l.Context)+len(nameContext))
@@ -450,19 +450,19 @@ func (l *Logger) WithName(name string) *Logger {
 	} else {
 		newLogger.Context = nameContext
 	}
-	
+
 	return &newLogger
 }
 
 // WithValues returns a new Logger instance with the specified key-value pairs added to the context.
 func (l *Logger) WithValues(keysAndValues ...any) *Logger {
 	newLogger := *l
-	
+
 	// Create a new context entry with the key-value pairs
 	e := NewContext(nil)
 	e.KeysAndValues(keysAndValues...)
 	valuesContext := e.Value()
-	
+
 	// Combine existing context with values context
 	if l.Context != nil {
 		newContext := make([]byte, 0, len(l.Context)+len(valuesContext))
@@ -472,7 +472,7 @@ func (l *Logger) WithValues(keysAndValues ...any) *Logger {
 	} else {
 		newLogger.Context = valuesContext
 	}
-	
+
 	return &newLogger
 }
 
